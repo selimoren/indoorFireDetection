@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { Camera, useCameraDevice, useCameraPermission } from 'react-native-vision-camera';
 import { FireModel } from '../native/FireModelModule';
 import { Dimensions } from 'react-native';
+import { showFireNotification } from '../utils/notification';
 
 const { width: SCREEN_W, height: SCREEN_H } = Dimensions.get('window');
 const MODEL_INPUT_SIZE = 640; // Model 640x640 input bekliyor
@@ -65,6 +66,7 @@ export default function App() {
       
       if (result && result.flame) {
         console.log("🔥 YANGIN TESPİT EDİLDİ - Confidence:", result.box?.conf);
+        showFireNotification(); 
         lastFireDetectedRef.current = true;
         
         if (result.box) {
